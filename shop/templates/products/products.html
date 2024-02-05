@@ -68,28 +68,33 @@
         </div>
         {% endfor %}
     </div>
+
+    <!--Пагинация-->
+    <div class="my-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if not products.has_previous %}disabled{% endif %}">
+                    <a class="page-link bg-light text-dark" href="{% if products.has_previous %}?{% update_params page=products.previous_page_number %}{% endif %}"><</a>
+                </li>
+    
+                {% for page in products.paginator.page_range %}
+                    {% if page >= products.number|add:-2 and page <= products.number|add:2 %} 
+                    <li class="page-item {% if products.number == page %} active {% endif %}">
+                        <a class="page-link bg-light text-dark" href="?{% update_params page=page %}">{{ page }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+    
+                <li class="page-item {% if not products.has_next %}disabled{% endif %}">
+                    <a class="page-link bg-light text-dark" href="{% if products.has_next %}?{% update_params page=products.next_page_number %}{% endif %}">></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    {% else %}
+        <h1>Ничего нет ...</h1>
     {% endif %}
 </div>
-
-<!--Пагинация-->
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item {% if not products.has_previous %}disabled{% endif %}">
-            <a class="page-link bg-light text-dark" href="{% if products.has_previous %}?{% update_params page=products.previous_page_number %}{% endif %}"><</a>
-        </li>
-
-        {% for page in products.paginator.page_range %}
-            {% if page >= products.number|add:-2 and page <= products.number|add:2 %} 
-            <li class="page-item {% if products.number == page %} active {% endif %}">
-                <a class="page-link bg-light text-dark" href="?{% update_params page=page %}">{{ page }}</a>
-            </li>
-            {% endif %}
-        {% endfor %}
-
-        <li class="page-item {% if not products.has_next %}disabled{% endif %}">
-            <a class="page-link bg-light text-dark" href="{% if products.has_next %}?{% update_params page=products.next_page_number %}{% endif %}">></a>
-        </li>
-    </ul>
-</nav>
 
 {% endblock content %}
