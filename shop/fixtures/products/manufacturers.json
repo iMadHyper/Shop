@@ -1,0 +1,101 @@
+[
+    {
+        "model": "products.manufacturer",
+        "pk": 1,
+        "fields": {
+            "name": "Asus",
+            "slug": "asus",
+            "image": "manufacturers/asus.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 2,
+        "fields": {
+            "name": "Gigabyte",
+            "slug": "gigabyte",
+            "image": "manufacturers/gigabyte.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 3,
+        "fields": {
+            "name": "Msi",
+            "slug": "msi",
+            "image": "manufacturers/msi.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 4,
+        "fields": {
+            "name": "Ardor gaming",
+            "slug": "ardor-gaming",
+            "image": "manufacturers/ardor.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 5,
+        "fields": {
+            "name": "Dark project",
+            "slug": "dark-project",
+            "image": "manufacturers/darkproject.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 6,
+        "fields": {
+            "name": "Red square",
+            "slug": "red-square",
+            "image": "manufacturers/redsquare.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 7,
+        "fields": {
+            "name": "Razer",
+            "slug": "razer",
+            "image": "manufacturers/razer_WEau9XQ.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 8,
+        "fields": {
+            "name": "Logitech",
+            "slug": "logitech",
+            "image": "manufacturers/logitech.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 9,
+        "fields": {
+            "name": "Apple",
+            "slug": "apple",
+            "image": "manufacturers/apple.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 10,
+        "fields": {
+            "name": "Xiaomi",
+            "slug": "xiaomi",
+            "image": "manufacturers/xiaomi.jpg"
+        }
+    },
+    {
+        "model": "products.manufacturer",
+        "pk": 11,
+        "fields": {
+            "name": "Fifine",
+            "slug": "fifine",
+            "image": "manufacturers/fifine_cDfnvwi.jpg"
+        }
+    }
+]

@@ -1,0 +1,47 @@
+[
+    {
+        "model": "products.category",
+        "pk": 1,
+        "fields": {
+            "name": "Мониторы",
+            "slug": "monitory",
+            "image": "categories/monitors.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 2,
+        "fields": {
+            "name": "Клавиатуры",
+            "slug": "klaviatury",
+            "image": "categories/keyboards_YL3yLI9.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 3,
+        "fields": {
+            "name": "Компьютерные мыши",
+            "slug": "kompyuternye-myshi",
+            "image": "categories/mouses.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 4,
+        "fields": {
+            "name": "Наушники",
+            "slug": "naushniki",
+            "image": "categories/headphones_x2KERne.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 5,
+        "fields": {
+            "name": "Ноутбуки",
+            "slug": "noutbuki",
+            "image": "categories/laptops.jpg"
+        }
+    }
+]

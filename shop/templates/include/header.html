@@ -2,16 +2,16 @@
 <header class="p-3 bg-dark text-white">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
+        <ul class="nav col-auto m-0 me-3 justify-content-center">
           <li><a href="{% url 'products:index' %}" class="nav-link px-2 text-white fw-bold">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+          {% if user.is_superuser %}
+          <li><a href="{% url 'admin:index' %}" class="nav-link px-2 text-white">Admin panel</a></li>
+          {% endif %}
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        <form class="col row m-0 mx-5">
+          <input type="search" class="col form-control form-control-dark me-2" placeholder="Search..." aria-label="Search">
+          <a href="#" type="button" class="col-auto btn btn-outline-light">Search</a>
         </form>
 
         {% if request.user.is_authenticated %}
@@ -21,7 +21,7 @@
                     {{ user.username }}
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'users:logout' %}">Log out</a></li>

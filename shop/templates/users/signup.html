@@ -6,29 +6,38 @@
     <div class="bg-dark mx-auto mt-5 p-5 rounded-5" style="width: fit-content; height: fit-content; min-width: 30%;">
         <div class="row text-light mx-auto my-4 fs-1" style="width: fit-content;">Sign up</div>
         
-        {% if error %}
+        {% comment %}{% if form.errors %}
         <div class="row" style="color: crimson;">
-            <p class="text-center fs-5">{{ error }}</p>
+            <p class="text-center fs-5">{{ form.errors }}</p>
         </div>
-        {% endif %}
+        {% endif %}{% endcomment %}
         
         <div class="row">
             <form method="POST" action="{% url 'users:signup' %}">
                 {% csrf_token %}
 
                 <div class="form-floating mb-3">
-                    <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username">
+                    <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username" required value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
                     <label for="floatingUsername">Username</label>
+                    {% if form.username.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show my-2 p-2">{{form.username.errors}}</div>
+                    {% endif %}
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="password" name="password1" class="form-control" id="floatingPassword" placeholder="Password">
+                    <input type="password" name="password1" class="form-control" id="floatingPassword" placeholder="Password" required>
                     <label for="floatingPassword">Password</label>
+                    {% if form.password1.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show my-2 p-2">{{form.password1.errors}}</div>
+                    {% endif %}
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input type="password" name="password2" class="form-control" id="floatingPassword2" placeholder="Password2">
+                    <input type="password" name="password2" class="form-control" id="floatingPassword2" placeholder="Password2" required>
                     <label for="floatingPassword2">Confirm password</label>
+                    {% if form.password2.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show my-2 p-2">{{form.password2.errors}}</div>
+                    {% endif %}
                 </div>
 
                 <div class="row mb-4">
