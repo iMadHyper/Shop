@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Catalog{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    {% if categories %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for category in categories %}
+                <div class="col">
+                    <div class="card card-hover align-items-center p-4" style="height: 280px;">
+                        <div class="d-flex m-0 p-0 align-items-center" style="height: 150px;">
+                            <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'img/no_image.jpg' %}{% endif %}" alt="...">
+                        </div>
+                        <a class="card-title fs-4 fw-bold stretched-link text-decoration-none my-auto" href="{% url 'products:category_products' category.slug %}">{{ category.name }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

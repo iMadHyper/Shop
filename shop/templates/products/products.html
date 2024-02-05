@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load products_tags %}
+
+{% block title %}Products{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    {% if products %}
+    <div class="row row-cols-auto align-items-center my-5 p-3 border rounded-3">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Сортировка
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item {% if request.GET.order_by == '1' or request.GET.order_by == None %}disabled bg-primary text-white{% endif %}" href="?order_by=1">По умолчанию</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% if request.GET.order_by == '2' %}disabled bg-primary text-white{% endif %}" href="?order_by=2">
+                        Сналача дешевые
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% if request.GET.order_by == '3' %}disabled bg-primary text-white{% endif %}" href="?order_by=3">
+                        Сналача дорогие
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% if request.GET.order_by == '4' %}disabled bg-primary text-white{% endif %}" href="?order_by=4">
+                        По размеру скидки
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card card-hover h-100 p-4">
+                <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.jpg' %}{% endif %}"
+                        alt="{{ product.name }}" style="max-height: 100%; max-width: 100%;">
+                </div>
+                <a class="card-title fs-5 fw-bold text-decoration-none"
+                    href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a>
+                <p>{{ product.small_description }}</p>
+                {% if product.discount %}
+                <p class="fs-3 mt-auto">
+                    <span class="me-3" style="color: darkorange;">{{ product.get_sell_price}} ₽</span>
+                    <strike>{{ product.price }} ₽</strike>
+                </p>
+                {% else %}
+                <p class="fs-3 mt-auto">{{ product.get_sell_price }} ₽</p>
+                {% endif %}
+                <div class="row g-2">
+                    <div class="col-10">
+                        <a type="button" class="btn btn-warning fs-5" style="width: 100%;">В корзину</a>
+                    </div>
+                    <div class="col-2">
+                        <a type="button" class="btn btn-warning fs-5" style="width: 100%;"><img
+                                src="{% static 'img/heart.png' %}" style="width: 20px;" alt="В избранное"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<!--Пагинация-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {% if not products.has_previous %}disabled{% endif %}">
+            <a class="page-link bg-light text-dark" href="{% if products.has_previous %}?{% update_params page=products.previous_page_number %}{% endif %}"><</a>
+        </li>
+
+        {% for page in products.paginator.page_range %}
+            {% if page >= products.number|add:-2 and page <= products.number|add:2 %} 
+            <li class="page-item {% if products.number == page %} active {% endif %}">
+                <a class="page-link bg-light text-dark" href="?{% update_params page=page %}">{{ page }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        <li class="page-item {% if not products.has_next %}disabled{% endif %}">
+            <a class="page-link bg-light text-dark" href="{% if products.has_next %}?{% update_params page=products.next_page_number %}{% endif %}">></a>
+        </li>
+    </ul>
+</nav>
+
+{% endblock content %}
