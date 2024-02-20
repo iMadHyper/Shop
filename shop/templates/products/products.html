@@ -57,7 +57,7 @@
                 {% endif %}
                 <div class="row g-2">
                     <div class="col-10">
-                        <a type="button" class="btn btn-warning fs-5" style="width: 100%;">В корзину</a>
+                        <a href="{% url 'cart:cart_add' product.slug %}" type="button" class="btn btn-warning fs-5" style="width: 100%;">В корзину</a>
                     </div>
                     <div class="col-2">
                         <a type="button" class="btn btn-warning fs-5" style="width: 100%;"><img

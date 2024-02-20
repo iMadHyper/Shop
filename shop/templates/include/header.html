@@ -1,39 +1,52 @@
 {% load static %}
 <header class="p-3 bg-dark text-white">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <ul class="nav col-auto m-0 me-3 justify-content-center">
-          <li><a href="{% url 'products:index' %}" class="nav-link px-2 text-white fw-bold">Home</a></li>
-          {% if user.is_superuser %}
-          <li><a href="{% url 'admin:index' %}" class="nav-link px-2 text-white">Admin panel</a></li>
-          {% endif %}
-        </ul>
+    <div class="container p-0">
+        <div class="row d-flex flex-wrap align-items-center justify-content-center">
+            <ul class="nav col-auto m-0 me-3 p-0 justify-content-center">
+                <li><a href="{% url 'products:index' %}" class="nav-link px-2 text-white fw-bold">Home</a></li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'admin:index' %}" class="nav-link px-2 text-white">Admin panel</a></li>
+                {% endif %}
+            </ul>
 
-        <form class="col row m-0 mx-5">
-          <input type="search" class="col form-control form-control-dark me-2" placeholder="Search..." aria-label="Search">
-          <a href="#" type="button" class="col-auto btn btn-outline-light">Search</a>
-        </form>
+            <form class="col row m-0 mx-5 p-0">
+                <input type="search" class="col form-control form-control-dark me-2" placeholder="Search..." aria-label="Search">
+                <a href="#" type="button" class="col-auto btn btn-outline-light">Search</a>
+            </form>
 
-        {% if request.user.is_authenticated %}
-        <ul class="nav nav-pills">
-            <li class="nav-item dropdown">
-                <a class="nav-link text-white fs-4 dropdown-toggle header-btn py-1 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ user.username }}
+            <ul class="nav col-auto justify-content-center text-small m-0 mx-3 p-0">
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <img src="{% static 'img/heart.png' %}" class="bi d-block mx-auto mb-1" width="24" height="24" style="filter: brightness(0) invert(1);"></img>
+                        Favorites
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'cart:cart' %}" class="nav-link text-white">
+                        <img src="{% static 'img/cart.png' %}" class="bi d-block mx-auto mb-1" width="24" height="24" style="filter: brightness(0) invert(1);"></img>
+                        Cart
+                    </a>
+                </li>
+            </ul>
+
+            {% if request.user.is_authenticated %}
+            <div class="col-auto dropdown text-end m-0 p-0">
+                <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ request.user.image.url }}" alt="{{ request.user.username }}" width="42" height="42" class="rounded-circle">
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'users:logout' %}">Log out</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:logout' %}">Sign out</a></li>
                 </ul>
-            </li>
-        </ul>
-        {% else %}
-        <div class="text-end">
-          <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Login</a>
-          <a href="{% url 'users:signup' %}" type="button" class="btn btn-dark">Sign-up</a>
+            </div>
+            {% else %}
+            <div class="col-auto text-end">
+                <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Login</a>
+                <a href="{% url 'users:signup' %}" type="button" class="btn btn-dark">Sign-up</a>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-      </div>
     </div>
-  </header>
+</header>

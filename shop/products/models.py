@@ -66,4 +66,6 @@ class Product(models.Model):
         return self.name
 
     def get_sell_price(self):
-        return self.price - self.discount
+        if self.discount:
+            return self.price - self.discount
+        return self.price

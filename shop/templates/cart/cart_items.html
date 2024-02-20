@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Cart{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    {% if cart_items %}
+    <div class="row m-0 p-0">
+        {% for cart_item in cart_items %}
+        <div class="row g-4 card-hover" style="border: 1px solid #ccc; border-radius: 15px;">
+            <div class="col-auto">
+                <a href="{% url 'products:product_detail' cart_item.product.slug %}">
+                    <img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" style="width: 220px;">
+                </a>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <a class="card-title fs-5 fw-bold text-decoration-none" 
+                            href="{% url 'products:product_detail' cart_item.product.slug %}">{{ cart_item.product.name }}</a>
+                    </div>
+                    <div class="col-auto">
+                        <div class="row g-3">
+                            <div class="col m-0 my-auto">
+                                <a href="{% url 'cart:cart_remove' cart_item.product.slug %}">
+                                    <img src="{% static 'img/trash.png' %}" alt="Удалить" style="width: 30px;">
+                                </a>
+                            </div>
+                            <div class="col m-0">
+                                <a href="#">
+                                    <img src="{% static 'img/heart.png' %}" alt="В избранное" style="width: 30px;">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mt-auto">
+                            {% if cart_item.product.discount %}
+                            <p class="fs-3 mt-auto">
+                                <span class="me-3" style="color: darkorange;">{{ cart_item.product.get_sell_price}} ₽</span>
+                                <strike>{{ cart_item.product.price }} ₽</strike>
+                            </p>
+                            {% else %}
+                            <p class="fs-3 mt-auto">{{ cart_item.product.get_sell_price }} ₽</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}
