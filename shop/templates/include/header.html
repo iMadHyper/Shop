@@ -16,7 +16,7 @@
 
             <ul class="nav col-auto justify-content-center text-small m-0 mx-3 p-0">
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{% url 'favorites:favorites' %}" class="nav-link text-white">
                         <img src="{% static 'img/heart.png' %}" class="bi d-block mx-auto mb-1" width="24" height="24" style="filter: brightness(0) invert(1);"></img>
                         Favorites
                     </a>
@@ -32,7 +32,7 @@
             {% if request.user.is_authenticated %}
             <div class="col-auto dropdown text-end m-0 p-0">
                 <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ request.user.image.url }}" alt="{{ request.user.username }}" width="42" height="42" class="rounded-circle">
+                    <img src="{% if request.user.image %}{{ request.user.image.url }}{% else %}{% static 'img/no_user.png' %}{% endif %}" alt="{{ request.user.username }}" width="42" height="42" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a></li>

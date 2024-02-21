@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Favorites{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    {% if favorites %}
+    <div class="row m-0 mb-5 p-0">
+        {% for favorite in favorites %}
+        <div class="row g-4 card-hover" style="border: 1px solid #ccc; border-radius: 15px;">
+            <div class="col-auto">
+                <a href="{% url 'products:product_detail' favorite.product.slug %}">
+                    <img src="{{ favorite.product.image.url }}" alt="{{ favorite.product.name }}" style="width: 220px;">
+                </a>
+            </div>
+            <div class="col">
+                <a class="card-title fs-5 fw-bold text-decoration-none" 
+                    href="{% url 'products:product_detail' favorite.product.slug %}">{{ favorite.product.name }}</a>
+            </div>
+            <div class="col-auto">
+                <div class="row mt-auto">
+                    {% if favorite.product.discount %}
+                    <p class="fs-3 mt-auto">
+                        <span class="me-3">{{ favorite.product.get_sell_price}} ₽</span>
+                        <strike style="color: gray;">{{ favorite.product.price }} ₽</strike>
+                    </p>
+                    {% else %}
+                    <p class="fs-3 mt-auto">{{ favorite.product.get_sell_price }} ₽</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="row g-3">
+                    <div class="col">
+                        <a href="{% url 'favorites:favorites_change' favorite.product.slug %}">
+                            <img src="{% static 'img/heart.png' %}" alt="В избранное" style="width: 30px;">
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{% url 'cart:cart_add' favorite.product.slug %}" type="button" class="btn btn-warning fs-5" style="width: 100%;">В корзину</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

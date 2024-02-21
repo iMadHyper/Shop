@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^auth/', include('users.urls')),
     re_path(r'^cart/', include('cart.urls')),
+    re_path(r'^favorites/', include('favorites.urls')),
     re_path(r"^", include('products.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

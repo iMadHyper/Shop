@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import SignupUserForm, LoginUserForm, ProfileForm
 
+from cart.models import CartItem
+
 
 login_template = 'users/login.html'
 signup_template = 'users/signup.html'
@@ -21,6 +23,11 @@ def login_user(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
+                
+                session_key = request.session.session_key
+                if session_key:
+                    CartItem.objects.filter(session_key=session_key).update(user=user)
+                
                 return redirect('products:index')
             else:
                 return render(request, login_template, { 'form' : form })
@@ -39,6 +46,11 @@ def signup_user(request):
             # Authenticate and login
             user = form.instance
             login(request, user)
+            
+            session_key = request.session.session_key
+            if session_key:
+                CartItem.objects.filter(session_key=session_key).update(user=user)
+            
             return redirect('products:index')
         else:
             return render(request, signup_template, { 'form' : form })

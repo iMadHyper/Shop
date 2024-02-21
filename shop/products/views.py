@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from . import models
 
@@ -34,7 +34,7 @@ def category_products(request, category_slug):
     on_sale = request.GET.get('on_sale', None)
     order_by = int(request.GET.get('order_by', 1))
     
-    category = models.Category.objects.get(slug=category_slug)
+    category = get_object_or_404(models.Category, slug=category_slug)
     products = category.get_available_products()
     
     if on_sale:
@@ -48,7 +48,7 @@ def category_products(request, category_slug):
     
     context = {
         'products': current_page_products
-    } # 'category': category, 
+    }
     
     return render(request, products_template, context=context)
 
