@@ -2,14 +2,40 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from . import models
 
+from django.db.models import Q
+
 
 categories_template = 'products/categories.html'
 products_template = 'products/products.html'
 
 
-def index(request):
-    return redirect('products:catalog')
-
+def search(request):
+    page = request.GET.get('page', 1)
+    query = request.GET.get('query', None)
+    
+    if query is None:
+        return redirect('products:catalog')
+    
+    products = models.Product.objects.filter(available=True).filter(Q(name__icontains=query) | Q(category__name__icontains=query) | Q(small_description__icontains=query))
+    
+    on_sale = request.GET.get('on_sale', None)
+    order_by = int(request.GET.get('order_by', 1))
+    
+    if on_sale:
+        products = products.filter(discount__gt=0)
+        
+    if order_by != 1:
+        products = products.order_by(order_by_fields[order_by])
+    
+    paginator = Paginator(products, 3)
+    current_page_products = paginator.page(int(page))
+    
+    context = {
+        'products': current_page_products,
+        'query' : query
+    }
+    
+    return render(request, products_template, context)
 
 def categories(request):
     categories = models.Category.objects.all()

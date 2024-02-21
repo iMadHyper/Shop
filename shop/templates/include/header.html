@@ -3,15 +3,17 @@
     <div class="container p-0">
         <div class="row d-flex flex-wrap align-items-center justify-content-center">
             <ul class="nav col-auto m-0 me-3 p-0 justify-content-center">
-                <li><a href="{% url 'products:index' %}" class="nav-link px-2 text-white fw-bold">Home</a></li>
+                <li><a href="{% url 'products:catalog' %}" class="nav-link px-2 text-white fw-bold">Home</a></li>
                 {% if user.is_superuser %}
                 <li><a href="{% url 'admin:index' %}" class="nav-link px-2 text-white">Admin panel</a></li>
                 {% endif %}
             </ul>
 
-            <form class="col row m-0 mx-5 p-0">
-                <input type="search" class="col form-control form-control-dark me-2" placeholder="Search..." aria-label="Search">
-                <a href="#" type="button" class="col-auto btn btn-outline-light">Search</a>
+            <form class="col row m-0 mx-5 p-0" method="get" action="{% url 'products:search' %}">
+                <input type="search" class="col form-control form-control-dark me-2" placeholder="Search..." aria-label="Search" name="query" value="{% if query %}{{ query }}{% endif %}">
+                <div class="col-auto">
+                    <button class="btn btn-outline-light">Search</a>
+                </div>
             </form>
 
             <ul class="nav col-auto justify-content-center text-small m-0 mx-3 p-0">
